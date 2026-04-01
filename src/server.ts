@@ -1,10 +1,10 @@
-import http from 'node:http';
+import { createServer } from 'node:http';
 import { env } from './env.js';
-import { createServerApplication } from './app/index.js';
+import { createApplication } from './app/index.js';
 
 async function main() {
     try {
-        const server = http.createServer(createServerApplication());
+        const server = createServer(createApplication());
         const PORT: number = env.PORT ? +env.PORT : 3000;
 
         server.listen(PORT, () => {

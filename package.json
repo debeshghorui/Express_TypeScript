@@ -5,6 +5,8 @@
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
+    "start": "node dist/server.js",
+    "build": "tsc -p .",
     "dev": "tsc-watch --onSuccess \"node dist/server.js\""
   },
   "keywords": [],
