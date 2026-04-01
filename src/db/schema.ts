@@ -3,7 +3,7 @@ import { pgTable, uuid, varchar, text, boolean, timestamp } from 'drizzle-orm/pg
 export const usersTable = pgTable('users', {
     id: uuid('id').defaultRandom().primaryKey(),
 
-    fistName: varchar('first_name', { length: 45 }).notNull(),
+    firstName: varchar('first_name', { length: 45 }).notNull(),
     lastName: varchar('last_name', { length: 45 }).notNull(),
 
     // The maximum length of an email address is 320 characters, but to be safe we can use 322 characters.
