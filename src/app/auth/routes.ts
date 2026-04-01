@@ -9,5 +9,6 @@ const authController = new AuthController();
 const router: Router = express.Router();
 
 router.post('/signup', authController.signup.bind(authController));
+router.post('/signin', authController.signin.bind(authController));
 
 export default router;
