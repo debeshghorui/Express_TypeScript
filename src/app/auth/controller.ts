@@ -7,8 +7,6 @@ import ApiResponse from '../utils/api-response.js';
 import ApiError from '../utils/api-error.js';
 import { signupPayloadModel, signinPayloadModel } from './models.js';
 import { db } from '../../db/index.js';
-import { access } from 'node:fs';
-import { ref } from 'node:process';
 
 class AuthController {
     public async signup(req: Request, res: Response) {
