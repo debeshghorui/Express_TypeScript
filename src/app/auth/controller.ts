@@ -7,6 +7,7 @@ import ApiResponse from '../utils/api-response.js';
 import ApiError from '../utils/api-error.js';
 import { signupPayloadModel, signinPayloadModel } from './models.js';
 import { db } from '../../db/index.js';
+import { createUserToken } from '../utils/token.js';
 
 class AuthController {
     public async signup(req: Request, res: Response) {
@@ -63,11 +64,11 @@ class AuthController {
             return ApiError.unauthorized("Invalid credentials");
         }
 
-        // TODO: Generate access and refresh tokens here (e.g., using JWT)
+        const accessToken = createUserToken({ userId: user.id });
 
         return ApiResponse.success(res, "User signed in successfully", { 
             id: user.id,
-            accessToken: "dummy-access-token", // TODO: generate a JWT or similar token here
+            accessToken,
             refreshToken: "dummy-refresh-token" // TODO: generate a refresh token here
         });
     }
