@@ -7,7 +7,7 @@ import ApiResponse from '../utils/api-response.js';
 import ApiError from '../utils/api-error.js';
 import { signupPayloadModel, signinPayloadModel } from './models.js';
 import { db } from '../../db/index.js';
-import { createUserToken } from '../utils/token.js';
+import { createUserToken, TokenPayload } from '../utils/token.js';
 
 class AuthController {
     public async signup(req: Request, res: Response) {
@@ -70,6 +70,22 @@ class AuthController {
             id: user.id,
             accessToken,
             refreshToken: "dummy-refresh-token" // TODO: generate a refresh token here
+        });
+    }
+
+    public async profile(req: Request, res: Response) {
+        // @ts-ignore
+        const { id } = req.user! as TokenPayload;
+
+        const [userResult] = await db.select().from(users).where(eq(users.id, id));
+
+        if (!userResult) return ApiError.notFound("User not found");
+
+        return ApiResponse.success(res, "User profile retrieved successfully", {
+            id: userResult.id,
+            firstName: userResult.firstName,
+            lastName: userResult.lastName,
+            email: userResult.email,
         });
     }
 }
